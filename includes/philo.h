@@ -6,7 +6,7 @@
 /*   By: ruben <ruben@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 13:01:57 by rnuno-im          #+#    #+#             */
-/*   Updated: 2026/02/05 02:46:22 by ruben            ###   ########.fr       */
+/*   Updated: 2026/02/12 01:07:01 by ruben            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,11 @@ int			is_number(char *str);
 int			is_postive(char *str);
 long		ft_atoi(char *str);
 int			ft_strlen(char *str);
+int			ft_strcmp(char *s1, char *s2);
 int			print_error(char *str);
 int			parsing(char **av);
 long		get_time(void);
+void		ft_usleep(long ms);
 int			init_rules(t_rules *rules, char **av, int ac);
 int			init_philos(t_philo **philos, t_rules *rules);
 void		*handle_single_philo(t_philo *philo);
@@ -39,5 +41,6 @@ int			check_death(t_philo *philos, t_rules *rules, int i);
 int			check_all_ate(t_philo *philos, t_rules *rules);
 void		*monitor(void *arg);
 void		cleanup(t_philo *philos, t_rules *rules);
+void		philo_cycle(t_philo *philo);
 
 #endif

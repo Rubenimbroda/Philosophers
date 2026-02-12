@@ -5,35 +5,60 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ruben <ruben@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 00:19:03 by ruben             #+#    #+#             */
-/*   Updated: 2026/02/12 01:08:02 by ruben            ###   ########.fr       */
+/*   Created: 2026/01/15 13:12:39 by rnuno-im          #+#    #+#             */
+/*   Updated: 2026/02/12 00:18:59 by ruben            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/philo.h"
 
-long	get_time(void)
+long	ft_atoi(char *str)
 {
-	struct timeval	tv;
+	int	res;
+	int	i;
+	int	sign;
 
-	gettimeofday(&tv, NULL);
-	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
+	i = 0;
+	sign = 1;
+	res = 0;
+	if (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	if (str[i] == '+' || str[i] == '-')
+	{
+		if (str[i] == '-')
+			sign = -1;
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		res = res * 10 + (str[i] - '0');
+		i++;
+	}
+	return (res * sign);
 }
 
-void	ft_usleep(long ms)
+int	ft_strlen(char *str)
 {
-	long	start;
+	int	i;
 
-	start = get_time();
-	while (get_time() - start < ms)
-		usleep(500);
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }
 
-void	philo_cycle(t_philo *philo)
+int	ft_strcmp(char *s1, char *s2)
 {
-	take_forks(philo);
-	eat_philo(philo);
-	print_action(philo, "is sleeping");
-	ft_usleep(philo->rules->sleep);
-	print_action(philo, "is thinking");
+	int	i;
+
+	i = 0;
+	while (s1[i] && s2[i] && s1[i] == s2[i])
+		i++;
+	return (s1[i] - s2[i]);
+}
+
+int	print_error(char *str)
+{
+	write(2, str, ft_strlen(str));
+	return (1);
 }

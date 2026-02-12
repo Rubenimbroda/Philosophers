@@ -6,7 +6,7 @@
 /*   By: ruben <ruben@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:39:35 by rnuno-im          #+#    #+#             */
-/*   Updated: 2026/02/05 03:04:02 by ruben            ###   ########.fr       */
+/*   Updated: 2026/02/11 20:43:36 by ruben            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,10 @@ typedef struct s_rules
 	long			start_time;
 	int				some_died;
 	pthread_mutex_t	print;
+	pthread_mutex_t	death_check;
 	pthread_mutex_t	*forks;
 	t_philo			*philos;
+	pthread_t		monitor_thread;
 }	t_rules;
 
 #endif

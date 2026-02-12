@@ -6,7 +6,7 @@
 /*   By: ruben <ruben@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 02:45:00 by ruben             #+#    #+#             */
-/*   Updated: 2026/02/05 03:04:07 by ruben            ###   ########.fr       */
+/*   Updated: 2026/02/11 22:44:44 by ruben            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	create_threads(t_philo *philos, t_rules *rules)
 {
 	int			i;
-	pthread_t	monitor_thread;
 
 	i = 0;
 	while (i < rules->n_philo)
@@ -24,17 +23,24 @@ int	create_threads(t_philo *philos, t_rules *rules)
 			return (print_error("Error: Thread creation failed\n"), 1);
 		i++;
 	}
-	if (pthread_create(&monitor_thread, NULL, monitor, rules))
+	if (pthread_create(&rules->monitor_thread, NULL, monitor, rules))
 		return (print_error("Error: Monitor thread creation failed\n"), 1);
 	return (0);
 }
 
 int	check_death(t_philo *philos, t_rules *rules, int i)
 {
-	if (get_time() - philos[i].last_meal > rules->die)
+	long	last_meal;
+
+	pthread_mutex_lock(&rules->death_check);
+	last_meal = philos[i].last_meal;
+	pthread_mutex_unlock(&rules->death_check);
+	if (get_time() - last_meal > rules->die)
 	{
 		print_action(&philos[i], "died");
+		pthread_mutex_lock(&rules->death_check);
 		rules->some_died = 1;
+		pthread_mutex_unlock(&rules->death_check);
 		return (1);
 	}
 	return (0);
@@ -44,12 +50,16 @@ int	check_all_ate(t_philo *philos, t_rules *rules)
 {
 	int	i;
 	int	all_ate;
+	int	eat_count;
 
 	i = 0;
 	all_ate = 1;
 	while (i < rules->n_philo)
 	{
-		if (philos[i].eat_count < rules->must_eat)
+		pthread_mutex_lock(&rules->death_check);
+		eat_count = philos[i].eat_count;
+		pthread_mutex_unlock(&rules->death_check);
+		if (eat_count < rules->must_eat)
 			all_ate = 0;
 		i++;
 	}
@@ -78,7 +88,7 @@ void	*monitor(void *arg)
 			rules->some_died = 1;
 			return (NULL);
 		}
-		usleep(100);
+		ft_usleep(1);
 	}
 	return (NULL);
 }
@@ -88,13 +98,15 @@ void	cleanup(t_philo *philos, t_rules *rules)
 	int	i;
 
 	i = 0;
+	pthread_join(rules->monitor_thread, NULL);
 	while (i < rules->n_philo)
 	{
-		pthread_join(philos[i].thread, NULL);
+		pthread_detach(philos[i].thread);
 		pthread_mutex_destroy(&rules->forks[i]);
 		i++;
 	}
 	pthread_mutex_destroy(&rules->print);
+	pthread_mutex_destroy(&rules->death_check);
 	free(rules->forks);
 	free(philos);
 }

@@ -6,7 +6,7 @@
 #    By: ruben <ruben@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/15 13:05:38 by rnuno-im          #+#    #+#              #
-#    Updated: 2026/02/05 02:46:22 by ruben            ###   ########.fr        #
+#    Updated: 2026/02/12 00:20:37 by ruben            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,27 +17,37 @@ SRCS		= srcs/main.c \
 			  srcs/simulation.c \
 			  srcs/threads.c \
 			  srcs/utils/utils.c \
-			  srcs/utils/init.c
+			  srcs/utils/str_utils.c \
+			  srcs/init.c
 
-OBJS		= $(SRCS:.c=.o)
+OBJ_DIR = obj
+OBJS		= $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -pthread -g
+CFLAGS		= -Wall -Wextra -Werror -pthread
 INCLUDES	= -I includes
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) -o $(NAME)
+	@echo "✅ Compilation complete: $(NAME)"
 
-%.o: %.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+$(OBJ_DIR):
+	@mkdir -p $(OBJ_DIR)
+
+$(OBJ_DIR)/%.o: %.c
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
-	rm -f $(OBJS)
+	@rm -rf $(OBJS)
+	@rm -rf $(OBJ_DIR)
+	@echo "🧹 Object files cleaned."
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
+	@echo "🗑️  All cleaned."
 
 re: fclean all
 
