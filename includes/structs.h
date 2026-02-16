@@ -3,31 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruben <ruben@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rnuno-im <rnuno-im@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 14:39:35 by rnuno-im          #+#    #+#             */
-/*   Updated: 2026/02/11 20:43:36 by ruben            ###   ########.fr       */
+/*   Updated: 2026/02/16 11:19:36 by rnuno-im         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
-#define STRUCTS_H
+# define STRUCTS_H
 
-#include <bits/pthreadtypes.h>
+# include <bits/pthreadtypes.h>
 
-typedef struct s_philo t_philo;
-typedef struct s_rules t_rules;
+typedef struct s_philo	t_philo;
+typedef struct s_rules	t_rules;
 
 typedef struct s_philo
 {
-	int id;
-	int eat_count;
-	long last_meal;
-	pthread_t thread;
-	pthread_mutex_t *left_fork;
-	pthread_mutex_t *right_fork;
-	t_rules *rules;
-} t_philo;
+	int				id;
+	int				eat_count;
+	long			last_meal;
+	pthread_t		thread;
+	pthread_mutex_t	*left_fork;
+	pthread_mutex_t	*right_fork;
+	t_rules			*rules;
+}	t_philo;
 
 typedef struct s_rules
 {

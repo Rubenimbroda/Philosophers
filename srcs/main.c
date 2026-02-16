@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruben <ruben@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rnuno-im <rnuno-im@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 13:01:32 by rnuno-im          #+#    #+#             */
-/*   Updated: 2026/02/04 01:06:51 by ruben            ###   ########.fr       */
+/*   Updated: 2026/02/16 11:12:02 by rnuno-im         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
-	t_rules rules;
-	t_philo *philos;
+	t_rules	rules;
+	t_philo	*philos;
 
 	if (ac < 5 || ac > 6)
 		return (print_error("Error invalid number of arguments\n"), 1);

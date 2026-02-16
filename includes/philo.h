@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruben <ruben@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rnuno-im <rnuno-im@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 13:01:57 by rnuno-im          #+#    #+#             */
-/*   Updated: 2026/02/12 01:07:01 by ruben            ###   ########.fr       */
+/*   Updated: 2026/02/16 11:16:13 by rnuno-im         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILOSOPHERS_H
-#define PHILOSOPHERS_H
+#ifndef PHILO_H
+# define PHILO_H
 
-#include <unistd.h>
-#include <stdio.h>
-#include "structs.h"
-#include <stdlib.h>
-#include <sys/time.h>
-#include <pthread.h>
+# include <unistd.h>
+# include <stdio.h>
+# include "structs.h"
+# include <stdlib.h>
+# include <sys/time.h>
+# include <pthread.h>
 
 int			is_number(char *str);
 int			is_postive(char *str);

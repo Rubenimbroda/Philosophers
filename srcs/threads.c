@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruben <ruben@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rnuno-im <rnuno-im@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 02:45:00 by ruben             #+#    #+#             */
-/*   Updated: 2026/02/11 22:44:44 by ruben            ###   ########.fr       */
+/*   Updated: 2026/02/16 11:14:31 by rnuno-im         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int	create_threads(t_philo *philos, t_rules *rules)
 	i = 0;
 	while (i < rules->n_philo)
 	{
-		if (pthread_create(&philos[i].thread, NULL, philosopher_routine, &philos[i]))
+		if (pthread_create(&philos[i].thread, NULL,
+				philosopher_routine, &philos[i]))
 			return (print_error("Error: Thread creation failed\n"), 1);
 		i++;
 	}

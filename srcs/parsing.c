@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ruben <ruben@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rnuno-im <rnuno-im@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 17:44:27 by ruben             #+#    #+#             */
-/*   Updated: 2026/02/12 00:02:08 by ruben            ###   ########.fr       */
+/*   Updated: 2026/02/16 11:13:27 by rnuno-im         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ int	parsing(char **av)
 		if (is_number(av[i]))
 			return (print_error("Error: Argument must be numbers\n"), 1);
 		if (is_postive(av[i]))
-			return (print_error("Error: Argument must be positive numbers\n"), 1);
+			return (print_error("Error: Numbers must be positive\n"), 1);
 		i++;
 	}
 	return (0);
 }
 
-int is_number(char *str)
+int	is_number(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!str || str[0] == '\0')
@@ -46,9 +46,9 @@ int is_number(char *str)
 	return (0);
 }
 
-int is_postive(char *str)
+int	is_postive(char *str)
 {
-	long num;
+	long	num;
 
 	num = ft_atoi(str);
 	if (num < 0 || num > 2147483647)
